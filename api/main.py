@@ -1,10 +1,11 @@
-import streamlit as st
 from fastapi import FastAPI
-from routers import equipos
+from .router import team
+
 
 app=FastAPI()
 
-app.include_router(equipos.router)
+app.include_router(team.router)
 
-st.title("UEFA EURO 2020")
-st.text("We are working now :)")
+@app.get("/")
+def root():
+    return{"message": "Euro Api"}

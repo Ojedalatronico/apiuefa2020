@@ -8,4 +8,4 @@ password=os.getenv("MONGO_PASS")
 
 URL=f"mongodb+srv://{user}:{password}@uefa.kgpdy.mongodb.net"
 
-db=MongoClient().get_database("UEFA")
+db=MongoClient(URL).get_database("Project")
