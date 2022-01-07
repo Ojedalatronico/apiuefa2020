@@ -1,7 +1,7 @@
 import streamlit as st
 from sections import sidebar
-from data.get import get_all_team,find_team,league,find_players,find_players_by_country,all_players
-from data.usefully import bar_chart_goals
+from data.get import *
+from data.usefully import *
 import pandas as pd
 
 seleccion=sidebar.create()
@@ -17,7 +17,6 @@ if seleccion== "See a year":
     st.dataframe(df)
     box=st.selectbox("Do you want to see totals goals each 10 min or 15 min", ["10 min","15 min"])
     st.pyplot(bar_chart_goals(data,box))
-
 if seleccion=="Compare years":
     st.text("I'm working on it")
 
@@ -29,10 +28,17 @@ if seleccion=="See individual stats":
         name=st.text_input("Intenta introducir un nombre")
         jugador=find_players(name)
         st.text(jugador)
-
     if data == "Nationality":
-        nationality=st.selectbox("pick team", [i["nationality"] for i in all_players()])
+        nationality=st.selectbox("pick team", list(set([i["Current Club"] for i in all_players()])))
         players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_country(nationality)])
+        st.text(find_players(players))
+    if data == "Position":
+        position=st.selectbox("pick team", list(set([i["position"] for i in all_players()])))
+        players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_position(position)])
+        st.text(find_players(players))
+    if data == "Age":
+        age=st.selectbox("pick team", list(set([i["age"] for i in all_players()])))
+        players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_age(age)])
         st.text(find_players(players))
 if seleccion=="Compare with another player":
     st.text("I'm working on it")

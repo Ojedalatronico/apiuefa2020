@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/players")
 def all_players():
-    results = list(db["uefa2020_players"].find({},{"_id":0,"full_name":1, "nationality":1}))
+    results = list(db["uefa2020_players"].find({},{"_id":0,"full_name":1, "Current Club":1,"position":1,"age":1}))
     return loads(json_util.dumps(results))
 
 @router.get("/look/players")
@@ -19,5 +19,15 @@ def look_player(full_name):
 
 @router.get("/lookbycountry/players")
 def player_lookbycountry(nationality):
-    results = list(db["uefa2020_players"].find({"nationality":nationality},{"_id":0,"full_name":1,"nationality":1}))
+    results = list(db["uefa2020_players"].find({"Current Club":nationality},{"_id":0,"full_name":1,"Current Club":1}))
+    return loads(json_util.dumps(results))
+
+@router.get("/lookbyposition/players")
+def player_lookbycountry(position):
+    results = list(db["uefa2020_players"].find({"position":position},{"_id":0,"full_name":1,"position":1}))
+    return loads(json_util.dumps(results))
+
+@router.get("/lookbyage/players")
+def player_lookbyage(age):
+    results = list(db["uefa2020_players"].find({"age":age},{"_id":0,"full_name":1,"age":1}))
     return loads(json_util.dumps(results))

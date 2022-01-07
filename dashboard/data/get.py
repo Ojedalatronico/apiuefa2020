@@ -40,6 +40,18 @@ def all_players():
     }
     return requests.get(url+"/players", params=q).json()
 
+def find_players_by_position(position):
+    q = {
+        "position":position
+    }
+    return requests.get(url+"/lookbyposition/players", params=q).json()
+
+def find_players_by_age(age):
+    q = {
+        "age":age
+    }
+    return requests.get(url+"/lookbyage/players", params=q).json()
+
 # --- Teams path ---
 def get_all_team():
     return requests.get(url+"/all_teams").json()

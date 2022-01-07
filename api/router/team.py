@@ -12,11 +12,6 @@ def find_team(common_name):
     results = list(db["uefa2020_teams"].find({"common_name":common_name}))
     return loads(json_util.dumps(results))
 
-
-@router.get("/team")
-def team_rout():
-    return{"message": "Equipos de la EURO cup"}
-
 @router.get("/team/{common_name}")
 def get_team(common_name):
     results = db["uefa2020_teams"].find({"common_name": common_name})
