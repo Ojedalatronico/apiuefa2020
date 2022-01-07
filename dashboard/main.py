@@ -1,6 +1,6 @@
 import streamlit as st
 from sections import sidebar
-from data.get import get_all_team,find_team,league
+from data.get import get_all_team,find_team,league,find_players,find_players_by_country,all_players
 from data.usefully import bar_chart_goals
 import pandas as pd
 
@@ -24,8 +24,16 @@ if seleccion=="Compare years":
 # --- Players path ---
 
 if seleccion=="See individual stats":
-    st.text("I'm working on it")
+    data=st.selectbox("How do you want to look it up", ["Full name","Nationality","Position","Age"])
+    if data == "Full name":
+        name=st.text_input("Intenta introducir un nombre")
+        jugador=find_players(name)
+        st.text(jugador)
 
+    if data == "Nationality":
+        nationality=st.selectbox("pick team", [i["nationality"] for i in all_players()])
+        players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_country(nationality)])
+        st.text(find_players(players))
 if seleccion=="Compare with another player":
     st.text("I'm working on it")
 
