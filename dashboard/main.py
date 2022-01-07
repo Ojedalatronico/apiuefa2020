@@ -1,17 +1,46 @@
 import streamlit as st
-from data.get import get_all_team, find_team
 from sections import sidebar
+from data.get import get_all_team,find_team,league
+from data.usefully import bar_chart_goals
+import pandas as pd
 
-sidebar.create()
-
-
-
+seleccion=sidebar.create()
+pd.DataFrame()
 st.title("UEFA EURO 2020")
 st.text("We are working now :)")
 
-theteam=st.selectbox("pick first team", ([equipos["common_name"] for equipos in get_all_team()]))
-theteam2=st.selectbox("pick second team", ([equipos["common_name"] for equipos in get_all_team()]))
+# --- General Statistics path ---
 
-data=[find_team(name) for name in [theteam, theteam2]]
+if seleccion== "See a year":
+    data=st.selectbox("Select a year", ["2020","2016"])
+    df=pd.DataFrame(league(data)).transpose()
+    st.dataframe(df)
+    box=st.selectbox("Do you want to see totals goals each 10 min or 15 min", ["10 min","15 min"])
+    st.pyplot(bar_chart_goals(data,box))
 
-st.text(data)
+if seleccion=="Compare years":
+    st.text("I'm working on it")
+
+# --- Players path ---
+
+if seleccion=="See individual stats":
+    st.text("I'm working on it")
+
+if seleccion=="Compare with another player":
+    st.text("I'm working on it")
+
+# --- Teams path ---
+
+if seleccion == "against team":
+    theteam=st.selectbox("pick first team", ([equipos["common_name"] for equipos in get_all_team()]))
+    theteam2=st.selectbox("pick second team", ([equipos["common_name"] for equipos in get_all_team()]))
+    data=[find_team(name) for name in [theteam, theteam2]]
+    st.text(data)
+
+if seleccion=="Compare":
+    st.text("I'm working on it")
+
+# --- Matches path ---
+
+if seleccion=="Matches":
+    st.text("I'm working on it")
