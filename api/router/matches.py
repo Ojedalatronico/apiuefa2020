@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from ..data.mongo import db
-from fastapi.encoders import jsonable_encoder
 from bson import json_util
 from json import loads
 
