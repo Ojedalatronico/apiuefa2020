@@ -72,13 +72,24 @@ def team_rival(stage,team_name_home):
         "stage":stage,
         "team_name_home":team_name_home
     }
-    return requests.get(url+"/matche/teams", params=q).json()
+    return requests.get(url+"/matche/rival", params=q).json()
 
-
-def stats_matche(stage,team_name_home,team_name_away):
+def stats_home(stage,team_name_home):
     q = {
         "stage":stage,
         "team_name_home":team_name_home,
-        "team_name_away": team_name_away
     }
-    return requests.get(url+"/matche/team/stats", params=q).json()
+    return requests.get(url+"/home/stats", params=q).json()
+
+def stats_away(stage,team_name_home):
+    q = {
+        "stage":stage,
+        "team_name_home":team_name_home
+    }
+    return requests.get(url+"/away/stats", params=q).json()
+
+def all_events(stage,team_name_home):
+    q = {"stage":stage,
+        "team_name_home":team_name_home
+    }
+    return requests.get(url+"/events", params=q).json()
