@@ -15,11 +15,8 @@ st.text("We are working now :)")
 
 if seleccion=="General stats":
 
-    st.text(list(all_events()))
+    st.text("patata")
     
-
-
-
 
 if seleccion=="individual matches":
     stage=st.selectbox("What stage do you want to see?", list(set([i["stage"] for i in all_matches()])))
@@ -58,7 +55,7 @@ if seleccion=="Compare years":
     st.text("I'm working on it")
 
 # --- Players path ---
-
+"""
 if seleccion=="See individual stats":
     data=st.selectbox("How do you want to look it up", ["Full name","Nationality","Position","Age"])
     if data == "Full name":
@@ -79,13 +76,14 @@ if seleccion=="See individual stats":
         st.text(find_players(players))
 if seleccion=="Compare with another player":
     st.text("I'm working on it")
-
+"""
 # --- Teams path ---
 
-if seleccion == "against team":
+"""if seleccion == "against team":
     theteam=st.selectbox("pick first team", ([equipos["common_name"] for equipos in get_all_team()]))
     theteam2=st.selectbox("pick second team", ([equipos["common_name"] for equipos in get_all_team()]))
     data=[find_team(name) for name in [theteam, theteam2]]
     st.text(data)
 if seleccion=="Compare":
     st.text("I'm working on it")
+"""

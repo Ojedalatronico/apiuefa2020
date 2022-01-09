@@ -21,7 +21,7 @@ def goal_each_15(season):
 
 # --- players routers ---
 
-def find_players(full_name):
+"""def find_players(full_name):
     q = {"full_name":full_name
 
     }
@@ -44,16 +44,16 @@ def find_players_by_age(age):
     q = {
         "age":age
     }
-    return requests.get(url+"/lookbyage/players", params=q).json()
+    return requests.get(url+"/lookbyage/players", params=q).json()"""
 
 # --- Teams path ---
-def get_all_team():
+"""def get_all_team():
     return requests.get(url+"/all_teams").json()
 def find_team(team):
     q = {
         "common_name":team
     }
-    return requests.get(url+"/find/team", params=q).json()
+    return requests.get(url+"/find/team", params=q).json()"""
 
 # --- Matches path ---
 
@@ -88,8 +88,3 @@ def stats_away(stage,team_name_home):
     }
     return requests.get(url+"/away/stats", params=q).json()
 
-def all_events(stage,team_name_home):
-    q = {"stage":stage,
-        "team_name_home":team_name_home
-    }
-    return requests.get(url+"/events", params=q).json()

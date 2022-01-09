@@ -7,7 +7,7 @@ from json import loads
 router = APIRouter()
 
 
-@router.get("/find/team")
+"""@router.get("/find/team")
 def find_team(common_name):
     results = list(db["uefa2020_teams"].find({"common_name":common_name}))
     return loads(json_util.dumps(results))
@@ -22,3 +22,4 @@ def get_team(common_name):
 def all_team():
     results = db["uefa2020_teams"].find({},{"_id":0,"common_name":1})
     return loads(json_util.dumps(results))
+"""

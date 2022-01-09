@@ -7,7 +7,7 @@ from json import loads
 router = APIRouter()
 
 
-@router.get("/players")
+"""@router.get("/players")
 def all_players():
     results = list(db["uefa2020_players"].find({},{"_id":0,"full_name":1, "Current Club":1,"position":1,"age":1}))
     return loads(json_util.dumps(results))
@@ -30,4 +30,4 @@ def player_lookbycountry(position):
 @router.get("/lookbyage/players")
 def player_lookbyage(age):
     results = list(db["uefa2020_players"].find({"age":age},{"_id":0,"full_name":1,"age":1}))
-    return loads(json_util.dumps(results))
+    return loads(json_util.dumps(results))"""

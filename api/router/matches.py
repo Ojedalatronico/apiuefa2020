@@ -7,16 +7,6 @@ import pandas as pd
 
 router = APIRouter()
 
-def str_to_dict(variable:str):
-    lista=[]
-    result=df[variable]
-    for i in range(len(result)):
-        a=ast.literal_eval(result[i])
-        lista.append(a)
-    return lista
-
-df=pd.DataFrame((db["UEFA"].find({})))
-
 @router.get("/matches")
 def all_matches():
     results = list(db["UEFA"].find({},{"_id":0}))
@@ -59,8 +49,30 @@ def away_stats(stage,team_name_home):
     results = list(db["UEFA"].find(q,p))
     return loads(json_util.dumps(results))
 
+@router.get("/events")
+def all_events(stage,team_name_home):
+    q={"stage":stage,
+        "team_name_home": team_name_home}
+    results = list(db["UEFA"].find({q},{"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"events_list":1}))
+    return loads(json_util.dumps(results))
+    
+"""
 
-"""@router.get("/matche/team/pens")
+@router.get("/event/substitution")
+def all_substitution():
+    return df["events_list"].to_json(orient = 'index')
+    
+@router.get("/lineup_home")
+def all_lineup_home():
+    results = list(db["UEFA"].find({},{"_id":0,"lineup_home":1}))
+    return loads(json_util.dumps(results))
+
+@router.get("/lineup_away")
+def all_lineup_away():
+    results = list(db["UEFA"].find({},{"_id":0,"lineup_away":1}))
+    return loads(json_util.dumps(results))
+
+    @router.get("/matche/team/pens")
 def pens_data(stage,team_name_home,team_name_away):
     q={"stage":stage,
         "team_name_home": team_name_home,
@@ -102,27 +114,3 @@ def all_pens():
     return loads(json_util.dumps(results))
 
 """
-
-
-@router.get("/events")
-def all_events(stage,team_name_home):
-    q={"stage":stage,
-        "team_name_home": team_name_home}
-    results = list(db["UEFA"].find({q},{"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"events_list":1}))
-    return loads(json_util.dumps(results))
-    
-"""
-
-@router.get("/event/substitution")
-def all_substitution():
-    return df["events_list"].to_json(orient = 'index')
-    
-@router.get("/lineup_home")
-def all_lineup_home():
-    results = list(db["UEFA"].find({},{"_id":0,"lineup_home":1}))
-    return loads(json_util.dumps(results))
-
-@router.get("/lineup_away")
-def all_lineup_away():
-    results = list(db["UEFA"].find({},{"_id":0,"lineup_away":1}))
-    return loads(json_util.dumps(results))"""
