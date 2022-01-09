@@ -21,7 +21,7 @@ def create():
         return Finish
 
     if seleccionado=="Matches":
-        Finish="Partidos"
+        Finish=st.sidebar.selectbox("and:", options=["General stats","individual matches"])
         return Finish
 
     return None

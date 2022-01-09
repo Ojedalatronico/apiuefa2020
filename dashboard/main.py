@@ -1,4 +1,6 @@
+from dotenv.main import load_dotenv
 import streamlit as st
+from streamlit.stats import StatsManager
 from sections import sidebar
 from data.get import *
 from data.usefully import *
@@ -8,6 +10,20 @@ seleccion=sidebar.create()
 pd.DataFrame()
 st.title("UEFA EURO 2020")
 st.text("We are working now :)")
+
+# --- Matches path ---
+
+if seleccion=="General stats":
+    stage=st.selectbox("What stage do you want to see?", set([i["stage"] for i in all_matches()]))
+    column1,column2 = st.columns(2)
+    with column1:
+        team = st.selectbox("Select a team",set([i["team_name_home"] for i in all_matches_teams(stage)]))
+    with column2:
+        team2 = st.selectbox("Select its rival",set([i["team_name_away"] for i in team_rival(stage,team)]))
+    st.text(stats_matche(stage,team,team2))
+if seleccion=="individual matches":
+    st.text("patata")
+
 
 # --- General Statistics path ---
 
@@ -50,11 +66,5 @@ if seleccion == "against team":
     theteam2=st.selectbox("pick second team", ([equipos["common_name"] for equipos in get_all_team()]))
     data=[find_team(name) for name in [theteam, theteam2]]
     st.text(data)
-
 if seleccion=="Compare":
-    st.text("I'm working on it")
-
-# --- Matches path ---
-
-if seleccion=="Matches":
     st.text("I'm working on it")
