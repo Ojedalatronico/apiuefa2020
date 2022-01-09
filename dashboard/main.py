@@ -20,7 +20,7 @@ if seleccion=="General stats":
         team = st.selectbox("Select a team",set([i["team_name_home"] for i in all_matches_teams(stage)]))
     with column2:
         team2 = st.selectbox("Select its rival",set([i["team_name_away"] for i in team_rival(stage,team)]))
-    st.text(stats_matche(stage,team,team2))
+    """st.text(stats_matche(stage,team,team2))"""
 if seleccion=="individual matches":
     st.text("patata")
 

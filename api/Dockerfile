@@ -1,8 +1,8 @@
 FROM python:3.10.1
 
-ADD ./ /miapi
+ADD ./ /api
 
-WORKDIR /miapi
+WORKDIR /api
 
 RUN pip install -r requirements.txt
 

@@ -3,4 +3,3 @@ pymongo==4.0.1
 router==0.1
 uvicorn==0.15.0
 python-dotenv==0.19.2
-bsn==0.5.10
