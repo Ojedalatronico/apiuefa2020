@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  midprojectbdmlpt1021:
+    image: midprojectbdmlpt1021
+    build:
+      context: .
+      dockerfile: ./Dockerfile
