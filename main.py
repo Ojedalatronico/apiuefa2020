@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from router import players,team,league
+from api.router import players,team,league
 
 app=FastAPI()
 
