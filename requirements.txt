@@ -1,6 +1,0 @@
-# To ensure app dependencies are ported from your virtual environment/host machine into your container, run 'pip freeze > requirements.txt' in the terminal to overwrite this file
-fastapi==0.70.1
-pymongo==4.0.1
-router==0.1
-uvicorn==0.15.0
-python-dotenv==0.19.2
