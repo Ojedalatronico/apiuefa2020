@@ -7,7 +7,12 @@ router = APIRouter()
 
 @router.get("/matches")
 def all_matches():
-    results = list(db["UEFA"].find({},{"_id":0}))
+    q={}
+    p={"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"team_home_score":1,
+        "possession_home":1,"total_shots_home":1,"shots_on_target_home":1,"duels_won_home":1
+        ,"yellow_cards_home":1,"red_cards_home":1,"team_away_score":1,"possession_away":1,
+        "total_shots_away":1,"shots_on_target_away":1,"duels_won_away":1,"yellow_cards_away":1,"red_cards_away":1}
+    results = list(db["UEFA"].find({q,p},{"_id":0}))
     return loads(json_util.dumps(results))
 
 @router.get("/matche/teams")
