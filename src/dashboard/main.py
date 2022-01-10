@@ -78,8 +78,8 @@ if seleccion=="individual matches":
             st.text(f"{team} got {home['yellow_cards_home']} yellow cards")
             st.text(f"and {team} got {home['red_cards_home']} red cards")
          with column2:
-            st.text(f"{team2} did {away['yellow_cards_away']} yelow card")
-            st.text(f"and {team2} did {away['red_cards_away']} red cards") 
+            st.text(f"{team2} got {away['yellow_cards_away']} yelow card")
+            st.text(f"and {team2} got {away['red_cards_away']} red cards") 
 # --- General Statistics path ---
 
 if seleccion== "See a year":
