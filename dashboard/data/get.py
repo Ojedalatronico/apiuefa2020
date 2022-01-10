@@ -88,3 +88,7 @@ def stats_away(stage,team_name_home):
     }
     return requests.get(url+"/away/stats", params=q).json()
 
+# --- General path ---
+def general():
+    q={}
+    return requests.get(url+"/general", params=q).json()

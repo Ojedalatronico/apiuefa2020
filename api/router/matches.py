@@ -2,8 +2,6 @@ from fastapi import APIRouter
 from ..data.mongo import db
 from bson import json_util
 from json import loads
-import ast
-import pandas as pd
 
 router = APIRouter()
 
@@ -56,61 +54,3 @@ def all_events(stage,team_name_home):
     results = list(db["UEFA"].find({q},{"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"events_list":1}))
     return loads(json_util.dumps(results))
     
-"""
-
-@router.get("/event/substitution")
-def all_substitution():
-    return df["events_list"].to_json(orient = 'index')
-    
-@router.get("/lineup_home")
-def all_lineup_home():
-    results = list(db["UEFA"].find({},{"_id":0,"lineup_home":1}))
-    return loads(json_util.dumps(results))
-
-@router.get("/lineup_away")
-def all_lineup_away():
-    results = list(db["UEFA"].find({},{"_id":0,"lineup_away":1}))
-    return loads(json_util.dumps(results))
-
-    @router.get("/matche/team/pens")
-def pens_data(stage,team_name_home,team_name_away):
-    q={"stage":stage,
-        "team_name_home": team_name_home,
-        "team_name_away": team_name_away}
-    p={"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"pens":1,"pens_home_score":1,
-        "pen_away_score":1
-        }
-    results = list(db["UEFA"].find(q,p))
-    return loads(json_util.dumps(results))
-
-@router.get("/matche/team/possesion")
-def possesion_data(stage,team_name_home,team_name_away):
-    q={"stage":stage,
-        "team_name_home": team_name_home,
-        "team_name_away": team_name_away}
-    p={"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"possession_home":1,"possession_away":1
-        }
-    results = list(db["UEFA"].find(q,p))
-    return loads(json_util.dumps(results))
-
-@router.get("/matche/team/shots")
-def shots_data(stage,team_name_home,team_name_away):
-    q={"stage":stage,
-        "team_name_home": team_name_home,
-        "team_name_away": team_name_away}
-    p={"_id":0,"team_name_home":1,"team_name_away":1,"stage":1,"shots_on_target_home":1,"shots_on_target_away":1
-        }
-    results = list(db["UEFA"].find(q,p))
-    return loads(json_util.dumps(results))
-
-@router.get("/stages")
-def all_stages():
-    results = list(db["UEFA"].find({},{"_id":0,"stage":1}))
-    return loads(json_util.dumps(results))
-
-@router.get("/pens")
-def all_pens():
-    results = list(db["UEFA"].find({},{"_id":0,"pens":1}))
-    return loads(json_util.dumps(results))
-
-"""

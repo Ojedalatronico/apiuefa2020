@@ -5,7 +5,7 @@ import streamlit as st
 def create():
 
     st.sidebar.header("What do you want to see?")
-    """seleccionado=st.sidebar.selectbox("What do you want yo see:", options=["Matches","General Statistics","Teams","Players"])"""
+
     seleccionado=st.sidebar.selectbox("What do you want yo see:", options=["Matches","General Statistics"])
 
     if seleccionado=="General Statistics":

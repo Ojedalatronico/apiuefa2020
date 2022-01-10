@@ -14,9 +14,30 @@ st.text("We are working now :)")
 # --- Matches path ---
 
 if seleccion=="General stats":
+    generals=general()[0]
+    data=st.selectbox("What data do you want to see?", ["shots","shots on target", "goals","cards"] )
+    if data=="shots":
+        shots= sumalista([i["total_shots_home"] for i in all_matches()],[i["total_shots_away"] for i in all_matches()])
+        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
+        st.text(f"En toda la euro hubieron {generals['total_shots']} shots, eso es un average de {generals['average_shots']} shots por partido")
+        st.text("El gráfico muestra lo muestra por cada partido")
+        st.pyplot(bar_shots(shots,game))
 
-    st.text("patata")
-    
+    if data=="shots on target":
+        shots= sumalista([i["shots_on_target_home"] for i in all_matches()],[i["shots_on_target_away"] for i in all_matches()])
+        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
+        st.text(f"En toda la euro hubieron {generals['total_shots_on_target']} shots on target, eso es un average de {generals['average_shots_on_targe']} shots on target por partido")
+        st.text("El gráfico muestra lo muestra por cada partido")
+        st.pyplot(bar_shots(shots,game))
+
+    if data=="goals":
+        shots= sumalista([i["team_home_score"] for i in all_matches()],[i["team_away_score"] for i in all_matches()])
+        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
+        st.text(f"En toda la euro hubieron {generals['total_goals']} goals, eso es un average de {generals['average_goals']} goals por partido")
+        st.text("El gráfico muestra lo muestra por cada partido")
+        st.pyplot(bar_shots(shots,game))
+    if data=="cards":
+        st.text("here we go again")
 
 if seleccion=="individual matches":
     stage=st.selectbox("What stage do you want to see?", list(set([i["stage"] for i in all_matches()])))
@@ -52,38 +73,5 @@ if seleccion== "See a year":
     box=st.selectbox("Do you want to see totals goals each 10 min or 15 min", ["10 min","15 min"])
     st.pyplot(bar_chart_goals(data,box))
 if seleccion=="Compare years":
-    st.text("I'm working on it")
+    st.text("Not for now :(")
 
-# --- Players path ---
-"""
-if seleccion=="See individual stats":
-    data=st.selectbox("How do you want to look it up", ["Full name","Nationality","Position","Age"])
-    if data == "Full name":
-        name=st.text_input("Intenta introducir un nombre")
-        jugador=find_players(name)
-        st.text(jugador)
-    if data == "Nationality":
-        nationality=st.selectbox("pick team", list(set([i["Current Club"] for i in all_players()])))
-        players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_country(nationality)])
-        st.text(find_players(players))
-    if data == "Position":
-        position=st.selectbox("pick team", list(set([i["position"] for i in all_players()])))
-        players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_position(position)])
-        st.text(find_players(players))
-    if data == "Age":
-        age=st.selectbox("pick team", list(set([i["age"] for i in all_players()])))
-        players=st.selectbox("pich a player", [e["full_name"] for e in find_players_by_age(age)])
-        st.text(find_players(players))
-if seleccion=="Compare with another player":
-    st.text("I'm working on it")
-"""
-# --- Teams path ---
-
-"""if seleccion == "against team":
-    theteam=st.selectbox("pick first team", ([equipos["common_name"] for equipos in get_all_team()]))
-    theteam2=st.selectbox("pick second team", ([equipos["common_name"] for equipos in get_all_team()]))
-    data=[find_team(name) for name in [theteam, theteam2]]
-    st.text(data)
-if seleccion=="Compare":
-    st.text("I'm working on it")
-"""
