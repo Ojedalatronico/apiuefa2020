@@ -15,7 +15,7 @@ st.text("We are working now :)")
 
 if seleccion=="General stats":
     generals=general()[0]
-    data=st.selectbox("What data do you want to see?", ["shots","shots on target", "goals","cards"] )
+    data=st.selectbox("What data do you want to see?", ["shots","shots on target", "goals","yellow cards","red cards"] )
     if data=="shots":
         shots= sumalista([i["total_shots_home"] for i in all_matches()],[i["total_shots_away"] for i in all_matches()])
         game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
@@ -36,12 +36,23 @@ if seleccion=="General stats":
         st.text(f"En toda la euro hubieron {generals['total_goals']} goals, eso es un average de {generals['average_goals']} goals por partido")
         st.text("El gráfico muestra lo muestra por cada partido")
         st.pyplot(bar_shots(shots,game))
-    if data=="cards":
-        st.text("here we go again")
+    if data=="yellow cards":
+        shots= sumalista([i["yellow_cards_home"] for i in all_matches()],[i["yellow_cards_away"] for i in all_matches()])
+        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
+        st.text(f"En toda la euro hubieron {generals['total_yellow_cards']} yellow cards, eso es un average de {generals['average_yellow_cards']} yellows cards por partido")
+        st.text("El gráfico muestra lo muestra por cada partido")
+        st.pyplot(bar_shots(shots,game))
+
+    if data=="red cards":
+        shots= sumalista([i["red_cards_home"] for i in all_matches()],[i["red_cards_away"] for i in all_matches()])
+        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
+        st.text(f"En toda la euro hubieron {generals['total_red_cards']} red cards, eso es un average de {generals['average_red_cards']} red cards por partido")
+        st.text("El gráfico muestra lo muestra por cada partido")
+        st.pyplot(bar_shots(shots,game))
 
 if seleccion=="individual matches":
     stage=st.selectbox("What stage do you want to see?", list(set([i["stage"] for i in all_matches()])))
-    estadisticas = st.selectbox("What stats do you want to see?", ["goals and shots","possession"])
+    estadisticas = st.selectbox("What stats do you want to see?", ["goals and shots","possession","cards"])
     column1,column2 = st.columns(2)
     with column1:
         team = st.selectbox("Select a team",list(set([i["team_name_home"] for i in all_matches_teams(stage)])))
@@ -62,8 +73,13 @@ if seleccion=="individual matches":
             st.pyplot(goles(away["total_shots_away"],away["shots_on_target_away"],away["team_away_score"]))
     if estadisticas =="possession":
         st.pyplot(possession(home["possession_home"],away["possession_away"],team,team2))
-
-
+    if estadisticas =="cards":
+         with column1:
+            st.text(f"{team} got {home['yellow_cards_home']} yellow cards")
+            st.text(f"and {team} got {home['red_cards_home']} red cards")
+         with column2:
+            st.text(f"{team2} did {away['yellow_cards_away']} yelow card")
+            st.text(f"and {team2} did {away['red_cards_away']} red cards") 
 # --- General Statistics path ---
 
 if seleccion== "See a year":
