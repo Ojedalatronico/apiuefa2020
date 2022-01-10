@@ -1,10 +1,9 @@
 import streamlit as st
-from streamlit.stats import StatsManager
 from sections import sidebar
-from data.get import *
 from data.usefully import *
+from data.get import *
 import pandas as pd
-import matplotlib.pyplot as plt
+import streamlit as st
 
 seleccion=sidebar.create()
 pd.DataFrame()
@@ -12,44 +11,26 @@ st.title("UEFA EURO 2020")
 st.text("We are working now :)")
 
 # --- Matches path ---
+def general_stats(individual_home,individual_away,total,average,data):
+    shots= sumalista([i[individual_home] for i in all_matches()],[i[individual_away] for i in all_matches()])
+    partidovs=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
+    st.text(f"En toda la euro hubieron {generals[total]} {data}, eso es un average de {generals[average]} {data} por partido")
+    st.text("El gráfico muestra lo muestra por cada partido")
+    return bar_shots(shots,partidovs)
 
 if seleccion=="General stats":
     generals=general()[0]
     data=st.selectbox("What data do you want to see?", ["shots","shots on target", "goals","yellow cards","red cards"] )
     if data=="shots":
-        shots= sumalista([i["total_shots_home"] for i in all_matches()],[i["total_shots_away"] for i in all_matches()])
-        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
-        st.text(f"En toda la euro hubieron {generals['total_shots']} shots, eso es un average de {generals['average_shots']} shots por partido")
-        st.text("El gráfico muestra lo muestra por cada partido")
-        st.pyplot(bar_shots(shots,game))
-
+        st.pyplot(general_stats("total_shots_home","total_shots_away","total_shots","average_shots",data))
     if data=="shots on target":
-        shots= sumalista([i["shots_on_target_home"] for i in all_matches()],[i["shots_on_target_away"] for i in all_matches()])
-        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
-        st.text(f"En toda la euro hubieron {generals['total_shots_on_target']} shots on target, eso es un average de {generals['average_shots_on_targe']} shots on target por partido")
-        st.text("El gráfico muestra lo muestra por cada partido")
-        st.pyplot(bar_shots(shots,game))
-
+        st.pyplot(general_stats("shots_on_target_home","shots_on_target_away","total_shots_on_target","average_shots_on_targe",data))
     if data=="goals":
-        shots= sumalista([i["team_home_score"] for i in all_matches()],[i["team_away_score"] for i in all_matches()])
-        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
-        st.text(f"En toda la euro hubieron {generals['total_goals']} goals, eso es un average de {generals['average_goals']} goals por partido")
-        st.text("El gráfico muestra lo muestra por cada partido")
-        st.pyplot(bar_shots(shots,game))
+        st.pyplot(general_stats("team_home_score","team_away_score","total_goals","average_goals",data))
     if data=="yellow cards":
-        shots= sumalista([i["yellow_cards_home"] for i in all_matches()],[i["yellow_cards_away"] for i in all_matches()])
-        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
-        st.text(f"En toda la euro hubieron {generals['total_yellow_cards']} yellow cards, eso es un average de {generals['average_yellow_cards']} yellows cards por partido")
-        st.text("El gráfico muestra lo muestra por cada partido")
-        st.pyplot(bar_shots(shots,game))
-
+        st.pyplot(general_stats("yellow_cards_home","yellow_cards_away","total_yellow_cards","average_yellow_cards",data))
     if data=="red cards":
-        shots= sumalista([i["red_cards_home"] for i in all_matches()],[i["red_cards_away"] for i in all_matches()])
-        game=partido([i["team_name_home"] for i in all_matches()],[i["team_name_away"] for i in all_matches()])
-        st.text(f"En toda la euro hubieron {generals['total_red_cards']} red cards, eso es un average de {generals['average_red_cards']} red cards por partido")
-        st.text("El gráfico muestra lo muestra por cada partido")
-        st.pyplot(bar_shots(shots,game))
-
+        st.pyplot(general_stats("red_cards_home","red_cards_away","total_red_cards","average_red_cards",data))
 if seleccion=="individual matches":
     stage=st.selectbox("What stage do you want to see?", list(set([i["stage"] for i in all_matches()])))
     estadisticas = st.selectbox("What stats do you want to see?", ["goals and shots","possession","cards"])

@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 from data.get import *
 
+
 def bar_chart_goals(data,box):
-    #Creating the dataset
     if box == "10 min":
         data=goal_each_10(data)
     elif box == "15 min":
@@ -36,25 +36,14 @@ def possession(home,away,team,team2):
     fig2=plt
     return  fig2
 
-def bar_shots(lst1,lst2):
-    ## Declaramos valores para el eje x
+def bar_shots(lst1,lst2,data):
     eje_x = lst2
-    
-    ## Declaramos valores para el eje y
     eje_y = lst1
-    
-    ## Creamos Gráfica
     plt.figure(figsize = (40, 20))
-    plt.bar(eje_x, eje_y)
-    
-    ## Legenda en el eje y
+    plt.bar(eje_x, eje_y)    
     plt.ylabel('Shots')
-    
-    ## Legenda en el eje x
-    plt.xlabel('Partido')
-    
+    plt.xlabel(f'{data}')
     fig=plt
-    ## Mostramos Gráfica plt.show()
     return fig
 
 def sumalista(lista1, lista2):
@@ -68,3 +57,6 @@ def partido(lista1, lista2):
     for i in range(0, len(lista1)):
         resultado.append(str(lista1[i])+ " vs " +str(lista2[i]))
     return resultado
+ 
+
+generals=general()[0]
